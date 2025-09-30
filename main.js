@@ -36,7 +36,9 @@ function createWindow() {
 
     const parsedUrl = new URL(url)
     let pathname = parsedUrl.pathname
-    pathname = pathname.replace(/^([A-Za-z]:\/)/, "")
+    if(pathname.startsWith("C:/")){
+      pathname = pathname.slice(3);
+    }
     if (pathname !== "/" && pathname.endsWith("/")) {
       pathname = pathname.slice(0, -1);
     }
