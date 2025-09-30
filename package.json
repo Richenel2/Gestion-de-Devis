@@ -86,11 +86,6 @@
   "build": {
     "appId": "com.raia.quote-management-app",
     "productName": "Gestion de devis",
-    "asar": true,
-    "files": [
-      "**/*",
-      "node_modules/**/*"
-    ],
     "mac": {
       "target": [
         "dmg"
