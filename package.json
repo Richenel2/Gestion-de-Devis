@@ -86,6 +86,7 @@
   "build": {
     "appId": "com.raia.quote-management-app",
     "productName": "Gestion de devis",
+    "files": [     "main.js",     "preload.js",     "out/**/*"   ],
     "mac": {
       "target": [
         "dmg"

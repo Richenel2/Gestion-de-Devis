@@ -1,12 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
-const serve = require("electron-serve");
-
-
-const appServe = app.isPackaged ? serve({
-  directory: path.join(__dirname, "out")
-}) : null;
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -22,11 +16,7 @@ function createWindow() {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000')
     mainWindow.webContents.openDevTools()
-  }else if (app.isPackaged) {
-    appServe(win).then(() => {
-      win.loadURL("app://-");
-    });
-  } else {
+  }else {
     // Charger la page index.html du dossier out
     const indexPath = path.join(__dirname, 'out', 'index.html')
     mainWindow.loadFile(indexPath)
