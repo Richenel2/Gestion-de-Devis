@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { loadQuotes } from "@/lib/quote-storage"
+import { loadQuotes, loadQuotesFromFile } from "@/lib/quote-storage"
 import type { Quote } from "@/lib/types"
 import { DashboardStats } from "@/components/dashboard-stats"
 import { RevenueChart } from "@/components/revenue-chart"
@@ -20,6 +20,7 @@ export default function DashboardPage() {
     const loadedQuotes = loadQuotes()
     setQuotes(loadedQuotes)
     setFilteredQuotes(loadedQuotes)
+    loadQuotesFromFile()
   }, [])
 
   useEffect(() => {
