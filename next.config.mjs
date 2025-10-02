@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+const isProd = process.env.NODE_ENV === 'production';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+const internalHost = process.env.TAURI_DEV_HOST || 'localhost';
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -15,8 +12,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  output:'export',
-  assetPrefix: `${__dirname}/out/`,
+  output: 'export',
+  // Note: This feature is required to use the Next.js Image component in SSG mode.
+  // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
+  images: {
+    unoptimized: true,
+  },
+  // Configure assetPrefix or else the server won't properly resolve your assets.
+  assetPrefix: isProd ? undefined : `http://${internalHost}:3000`,
 }
 
 export default nextConfig
