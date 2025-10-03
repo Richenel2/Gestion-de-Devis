@@ -2,7 +2,7 @@
 
 import type { Quote } from "./types"
 import { quotesToCSV, csvToQuotes } from "./csv-utils"
-import { writeTextFile, readTextFile, BaseDirectory,create } from "@tauri-apps/plugin-fs"
+import { writeTextFile, readTextFile, BaseDirectory,create,mkdir} from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { save } from "@tauri-apps/plugin-dialog"
 import { resolveResource } from "@tauri-apps/api/path"
@@ -14,6 +14,8 @@ const FILE_NAME = "quotes_data.json"
 async function saveToFileAsync(quotes: Quote[]) {
   try {
     // On résout le chemin vers AppData
+    const folderExists = await exists("", { baseDir: BaseDirectory.AppData })
+    if (!folderExists) await mkdir("", { baseDir: BaseDirectory.AppData })
     const fileExists = await exists(FILE_NAME, { baseDir: BaseDirectory.AppData })
 
     if (!fileExists) (await create(FILE_NAME,{baseDir:BaseDirectory.AppData})).close()
